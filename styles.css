@@ -486,6 +486,78 @@ html.js:not(.reveal-fallback) body:not(.is-ready) .hero .line__in { transform: t
   .bcard--b, .bcard--c { grid-column: span 5; }
 }
 
+/* ---------- 9b. Terrenos disponibles ---------- */
+.disp {
+  border-radius: var(--rad) var(--rad) 0 0; margin-top: calc(var(--rad) * -1);
+  padding-top: calc(clamp(5rem, 11vw, 9rem) + 0px);
+}
+.lotes { display: grid; gap: 1.25rem; }
+.lote {
+  position: relative; display: flex; flex-direction: column; border-radius: 28px; overflow: hidden; isolation: isolate;
+  background: var(--ink); color: #f1f1ec; box-shadow: 0 30px 60px -36px rgba(18, 19, 21, .6);
+}
+.lote__media { position: relative; display: grid; gap: 4px; background: var(--ink-3); }
+.lote__main { position: relative; display: block; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; cursor: zoom-in; background: var(--ink-3); }
+.lote__main img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 55%);
+  transition: transform 1.4s var(--ease);
+}
+.lote__main:hover img { transform: scale(1.05); }
+.lote__tag {
+  position: absolute; left: .9rem; top: .9rem; z-index: 2; padding: .38rem .75rem; border-radius: 999px; pointer-events: none;
+  background: rgba(18, 19, 21, .55); color: #fff; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  font: 500 .68rem/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase;
+}
+.lote__zoom {
+  position: absolute; right: .8rem; bottom: .8rem; display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%;
+  background: rgba(18, 19, 21, .6); color: #fff; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+.lote__thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.lote__thumbs button { display: block; aspect-ratio: 1 / 1; overflow: hidden; cursor: zoom-in; background: var(--ink-3); }
+.lote__thumbs img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease), opacity .3s; }
+.lote__thumbs button:hover img { transform: scale(1.08); opacity: .88; }
+
+.lote__body { display: flex; flex-direction: column; gap: 1rem; flex: 1; padding: 1.5rem 1.4rem 1.6rem; }
+.lote__zone { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255, 255, 255, .6); }
+.lote h3 { font: 700 clamp(2.2rem, 3.6vw, 2.8rem)/.95 var(--f-display); text-transform: uppercase; letter-spacing: -.004em; }
+.lote__size { display: flex; align-items: baseline; gap: .5rem; color: rgba(255, 255, 255, .72); font-size: .95rem; }
+.lote__size b { font: 700 2.6rem/1 var(--f-display); color: var(--y); }
+.lote__prices { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin: 0; }
+.lote__prices > div { display: flex; flex-direction: column; gap: .15rem; padding: .85rem .9rem; border-radius: 16px; border: 1px solid var(--line-d); }
+.lote__prices dt { font: 500 .66rem/1.2 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: rgba(255, 255, 255, .6); }
+.lote__prices dd { margin: 0; }
+.lote__prices dd:not(.lote__terms) { font: 700 clamp(1.7rem, 2.2vw, 2rem)/1.05 var(--f-display); letter-spacing: .005em; }
+.lote__prices dd small { font: 500 .62rem/1 var(--f-mono); letter-spacing: .1em; color: rgba(255, 255, 255, .55); white-space: nowrap; }
+.lote__terms { font-size: .78rem; line-height: 1.35; color: rgba(255, 255, 255, .7); }
+.lote__prices .is-cash { background: var(--y); border-color: var(--y); color: var(--ink); }
+.lote__prices .is-cash dt, .lote__prices .is-cash dd small, .lote__prices .is-cash .lote__terms { color: rgba(18, 19, 21, .72); }
+.lote__perks { display: flex; flex-wrap: wrap; gap: .4rem; }
+.lote__perks li { display: inline-flex; align-items: center; gap: .4rem; padding: .38rem .7rem .38rem .55rem; border-radius: 999px; border: 1px solid var(--line-d); font-size: .78rem; line-height: 1.2; color: rgba(255, 255, 255, .88); }
+.lote__perks .ico { width: .95em; height: .95em; color: var(--y); }
+.lote__cta { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem .8rem; margin-top: auto; padding-top: .4rem; }
+.lote__map {
+  display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 1.1rem; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .3);
+  font-weight: 700; font-size: .9rem; line-height: 1; transition: background .3s, border-color .3s;
+}
+.lote__map:hover { background: rgba(255, 255, 255, .09); border-color: rgba(255, 255, 255, .6); }
+.lote__map .ico { color: var(--y); }
+.lotes__note { margin-top: 1.6rem; max-width: 40rem; font-size: .88rem; color: var(--gr); }
+/* Móvil angosto: precios y municipio sin saltos de línea feos */
+@media (max-width: 440px) {
+  .lote__prices dd:not(.lote__terms) { font-size: 1.5rem; }
+  .lote__zone { letter-spacing: .08em; }
+}
+/* Tableta: foto a la izquierda, datos a la derecha */
+@media (min-width: 720px) and (max-width: 1099px) {
+  .lote { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
+  .lote__media { grid-template-rows: 1fr auto; }
+  .lote__main { aspect-ratio: auto; min-height: 320px; }
+}
+/* Escritorio: tres columnas */
+@media (min-width: 1100px) {
+  .lotes { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+}
+
 /* ---------- 10. Galería 3D ---------- */
 .galeria { overflow: clip; }
 .ring {
